@@ -2422,6 +2422,9 @@ window.onload = () => {
       renew_pass.type=='password'?(renew_pass.type='text',renew_pass.focus()):(renew_pass.type='password');
     }
   });
+  is_accept.addEventListener('click',(e)=>{
+    acceptCall()
+  });
   login.addEventListener('click',(e)=>{
     auth.signInWithEmailAndPassword(login_email.value.trim(),pswd.value).then(userCre=>{
                 prog_bar.style='';
