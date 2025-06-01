@@ -2422,6 +2422,17 @@ window.onload = () => {
       renew_pass.type=='password'?(renew_pass.type='text',renew_pass.focus()):(renew_pass.type='password');
     }
   });
+  pswd.addEventListener('keydown',(e)=>{
+    if(e.key=='Enter'){
+      auth.signInWithEmailAndPassword(login_email.value.trim(),pswd.value).then(userCre=>{
+                prog_bar.style='';
+                login_board.style='display:none;';
+                invalid_auth.style='';
+                login.innerHTML='Login';
+              })
+              .catch(error=>{$key='logink',invalid_auth.innerHTML='<strong>Wrong credentials</strong><br>Invalid username or password',invalid_auth.style='display:block;',login.innerHTML='Login',login_board.scrollTop=0,log_kit[0].focus()});
+    }
+  });
   curr_pass.addEventListener('keydown',(e)=>{
     if(e.key=='Call'){
       curr_pass.type=='password'?(curr_pass.type='text',curr_pass.focus()):(curr_pass.type='password');
