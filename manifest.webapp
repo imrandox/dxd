@@ -1,0 +1,44 @@
+{
+  "name":"ChatWave",
+  "version":"1.2.5",
+  "type":"privileged",
+  "description":"ChatWave is a lightweight and fast chat application designed for KaiOS devices. It allows users to create a simple profile, verify their email, and chat with friends using text and images. The app is optimized for keypad phones and low-bandwidth networks, with voice calling coming soon.",
+  "subtitle":"Smart, Simple & Fast – Chatting app",
+  "launch_path":"/index.html",
+  "default_locale":"en-US",
+  "locales":{
+    "en-US":{
+	    "name":"ChatWave",
+      "description":"ChatWave is a lightweight and fast chat application designed for KaiOS devices. It allows users to create a simple profile, verify their email, and chat with friends using text and images. The app is optimized for keypad phones and low-bandwidth networks, with voice calling coming soon.",
+      "subtitle":"Smart, Simple & Fast – Chatting app"
+	  }
+  },
+  "orientation":["portrait", "portrait-primary"],
+  "icons":{
+    "56":"/icons/icon56.png",
+    "112":"/icons/icon120.png"
+  },
+  "origin":"app://imrmah.wbchtv.com",
+  "permissions":{
+    "systemXHR":{},
+    "audio-capture":{},
+    "audio-channel-content":{},
+    "feature-detection":{},
+    "mobiledata":{},
+    "wifidata":{},
+    "volumemanager":{},
+    "audio-channel-normal":{},
+    "web-rtc": {},
+    "camera": {}
+  },
+  "developer":{
+    "name":"Imran Taher",
+    "url":"http://popbd.wapgem.com"
+  },
+  "priority":"high",
+  "dependencies":{
+		"ads-sdk":"1.5.8"
+	},
+  "theme_color":"#fff",
+  "fullscreen":"true"
+}

@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1" />
+    <meta name="author" content="Imran Taher">
+    <meta name="copyright" content="Copyright 2024">
+    <link href="css/style.css" type="text/css" rel="stylesheet">
+    <script src="js/firebase-app.js"></script>
+    <script src="js/firebase-firestore.js"></script>
+    <script src="js/firebase-storage.js"></script>
+    <script src="js/firebase-auth.js"></script>
+    <script src="js/firebase-database.js"></script>
+    <script src="kai/kaiads.v5.min.js"></script>
+    <script src="zapp.js"></script>
+    <title>ChatWave</title>
+  </head>
+  <body>
+    <div class="blankc"></div>
+    <div id="filds">
+      <div class="container">
+        <div id="ad-container">Ad</div>
+      </div>
+      <div class="view_ad_img"></div>
+      <div class="view_ad_button">View Ad</div>
+    </div>
+    <div id="prog_bar">
+      <img src="img/loading.gif" style="width:230px;">
+      <div style="width:220px;position:fixed;top: 60%;left: 10px;transform:translate(0,-50%);font-size: 30px;font-style: italic;font-family: 'Souge UI';">Loading</div>
+    </div>
+    <div class="blurx" title="exition modal">
+      <div id="no_internet">
+        <div style="font-size:28px;">No Internet!</div>
+        <div>Please check your connection and try again</div>
+      </div>
+    </div>
+    <div id="loading">
+      <div id="pan">
+        <div id="hover">
+          <div id="filler" class="lft"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div id="login_board">
+      <div style="width:216px;font-size:25px;text-align:center;padding-top:3px;"><img src="img/login_logo.png" style="width:28px;height:28px;"><span style="position:relative;top:-5px;"> <b>Login</b></span></div>
+      <div id="invalid_auth">Incorrect email or password!</div>
+      <input type="email" id="login_email" placeholder="Email" class="login_kit" tabindex="0"><br>
+      <input type="password" id="pswd" placeholder="Password" style="margin-bottom:3px;" class="login_kit" tabindex="1">
+      <div id="pswd_hint">Press <span style="color:#078b9b;">Call</span> to show password</div>
+      <button id="login" class="login_kit" tabindex="2">Login</button><br>
+      <button id="forgot_pass" class="login_kit" tabindex="3">Forgot Password?</button><hr>
+      <button id="create_acc" class="login_kit" tabindex="4">Create Account</button><br><br>
+      <div id="log_opt"></div>
+      <div class="footer"><div class="footerbody"><div class="left">Options</div><div class="right">Exit</div></div></div>
+    </div>
+    
+    <div id="signup_board">
+      <div style="width:240px;font-size:25px;text-align:center;padding-top:3px;"><img src="img/signup_logo.png" style="width:28px;height:28px;"><span style="position:relative;top:-5px;"> <b>Create Account</b></span></div><div style="color:#c70767;font-size:14px;">All fields are required, let’s complete them!</div><hr>
+      <div id="invalid_auth2">Incorrect email or password!</div>
+      <div style="width: 125px;">Full Name</div><div id="name_notify" style="color:#c70767;font-size:15px;"></div>
+      <input type="text" id="fulname" placeholder="Enter Full Name" class="signup_kit" tabindex="0"><hr>
+      <div style="width:90px;">Email</div><div id="email_notify" style="color:#c70767;font-size:15px;"></div>
+      <input type="email" id="signup_email" placeholder="Enter valid email" class="signup_kit" tabindex="1"><hr>
+      <div style="width:220px;">Create strong password</div>
+      <div id="pswd_hint2" style="visibility:visible;margin-bottom:3px;width:235px;">Press <span style="color:#078b9b;">Call</span> to show password</div>
+      <div id="pswd_notify" style="color:#c70767;font-size:15px;"></div><input type="password" id="signup_pswd" placeholder="Password (min 8 length)" class="signup_kit" tabindex="2"><br>
+      <div style="width: 180px;">Confirm password</div>
+      <div id="cnfrm_notify" style="color:#c70767;font-size:15px;"></div><input type="password" id="signup_pswd2" placeholder="Confirm password" style="margin-bottom:3px;" class="signup_kit" tabindex="3"><hr>
+      <div id="signup_error" style="color:#c70767;font-size:15px;margin-bottom:7px;padding:0px 3px;"></div>
+      <button id="signup_btn" class="signup_kit" tabindex="4">Sign Up</button><br><br>
+      <div class="footer"><div class="footerbody"><div class="right">Cancel</div></div></div>
+    </div>
+    
+    <div id="forgot_board">
+      <div style="width:240px;font-size:22px;text-align:center;padding-top:3px;"><img src="img/forgot.png" style="width:28px;height:28px;"><span style="position:relative;top:-5px;"> <b>Forgot Password</b></span></div>
+      <div id="invalid_auth3"></div>
+      <input id="forgot_email" type="email" placeholder="Enter your email">
+      <button id="snd_reset">Send</button><hr>
+      <div style="font-family:'Segoe UI';text-align:center;color:#0c48d5;font-size:15px;font-style:italic;margin-bottom:5px;">Don't worry! Enter your email, and we'll send you a reset link.</div>
+      <div class="footer"><div class="footerbody"><div class="right">Back</div></div></div>
+    </div>
+    
+    <div id="upload_pic">
+      <div style="font-size:20px;font-weight:bold;margin-top:5px;">Upload Profile Picture</div>
+      <div style="width:120px;height:120px;margin:3px auto;border:1px solid #419aa9;border-radius:50%;overflow:hidden;background:#000;"><img id="cnv_img" src="img/muser.png" style="transform:scale(1.8);position:relative;top:20px;left:0px;"><canvas id="cnv" style="display:none;"></canvas></div>
+      <div style="margin-bottom:3px;font-size:15px;font-family:'Segoe UI';">Zoom with <span style="color:#088f8f;font-size:17px;"><b>*</b>/<b>#</b></span> keys,<br>Move with <span style="color:#088f8f;font-size:17px;"><b>Arrow</b></span> keys</div>
+      <button id="upld_img" class="signup_kit" tabindex="4">Choose Image</button>
+      <div id="upld_err" style="color:#c70767;font-size: 14px;overflow: auto;height: 43px;"></div>
+      <input type="file" id="pro_pic" accept="image/png, image/jpeg" style="margin-bottom:10px;" class="hidden" tabindex="4"><hr>
+      <img id="muser" src="img/muser.png" style="display:none;">
+      <div class="footer"><div class="footerbody"><div id="upld_state" class="left" ><span>U</span><span>p</span><span>l</span><span>o</span><span>a</span><span>d</span></div><div class="center">SELECT</div><div id="upld_scs" class="right">Skip</div></div></div>
+    </div>
+    
+    <div id="buddies">
+      <div style="font-size:20px;font-weight:bold;color:#fff;background: #07b9b9;border-bottom:1px solid blue;height:31px;position:relative;"><div id="usr_iden" style="position:absolute;left:0px;width:130px;height:31px;white-space:pre;overflow:hidden;"></div><div id="actorall" style="position:absolute;right:0px;width:90px;height:31px;font-size:16px;text-align:center;"></div></div>
+      <div id="buddies_list"></div>
+      <div id="buddies_opt"></div>
+      <div class="footer"><div class="footerbody"><div class="left">Options</div><div class="center">SELECT</div><div class="right">Exit</div></div></div>
+    </div>
+    
+    <div id="srx_buddies">
+      <div style="font-size:20px;font-weight:bold;color:#fff;background: #07b9b9;text-align:center;border-bottom:1px solid #fff;height:31px;">ChatWave</div>
+      <div id="srx_buddies_list"></div>
+      <div class="footer"><div class="footerbody"><div class="center">SELECT</div><div class="right">Back</div></div></div>
+    </div>
+    
+    <audio id="msg_odo" style="display:none;" src="msg.mp3"></audio>
+    <audio id="call_odo" style="display:none;" autoplay playsinline></audio>
+    <audio id="ring_odo" style="display:none;" src="ringing.mp3" loop="true"></audio>
+    <audio id="ringback_odo" style="display:none;" src="ringback.mp3" loop="true"></audio>
+    <div id="msg_notify"></div>
+    <div id="chat_board">
+      <div id="receiver_guy"><div class="pro_picb"><img id="guy_pic" src="img/muser.png"></div><div class="pro_name" style="font-weight:normal;left:50px;"><div id="guy_name">Name</div><div id="guy_state"></div></div></div>
+      <div id="messages_board"></div>
+      <div id="msgr">
+        <div style="width: 24px;height: 24px;position:absolute;top: -1px;left: 4px;background:url('img/cam.png') no-repeat;background-size: 24px 24px;"></div><div style="width: 30px;height: 12px;position:absolute;top: 25px;left: 2px;background: url('img/call.png') no-repeat;background-size: 30px 12px;"></div>
+        <input id="msgr_text" placeholder="Type message">
+      </div>
+      <input type="file" id="pic_msg" accept="image/png, image/jpeg" class="hidden">
+      <img id="temp_pic" class="hidden">
+      <canvas id="cnv_pic" class="hiddens" width="192" height="256"></canvas>
+      <div id="veri_prompt"></div>
+    </div>
+    
+    <div class="board" title="Update Notice">
+      <h2>Update Notice</h2>
+      <div id="update_notice"></div>
+      <div class="footer"><div class="footerbody"><div class="center">Update</div><div class="right">Later</div></div></div>
+    </div>
+    
+    <div class="board" title="view profile">
+      <h2>Profile</h2>
+      <div id="my_profile"></div>
+      <div class="footer"><div class="footerbody"><div class="right">Back</div></div></div>
+    </div>
+    
+    <div class="board" title="caller screen" style="background:#fff;">
+      <h2 id="caller">Call log</h2>
+      <div id="callee_pic"></div>
+      <div id="callee_name"></div>
+      <div id="callee_state"></div>
+      <div class="call_decline"><img src="img/call_reject.png" style="width:36px;"></div>
+    </div>
+    
+    <div class="board" title="callee screen" style="background:#fff;">
+      <h2 id="callee">Call log</h2>
+      <div id="caller_pic"><img src="img/muser.png"></div>
+      <div id="caller_name">Ashikur Rahman</div>
+      <div id="caller_state"></div>
+      <div class="call_accept" id="is_accept"><img src="img/call_accept.png" style="width:36px;"></div>
+      <div class="call_decline"><img src="img/call_reject.png" style="width:36px;"></div>
+    </div>
+    
+    <div class="board" title="change password">
+      <h2>Reset Password</h2>
+      <div id="cng_pass">
+        <div id="err_stt"></div>
+        <small>Current password</small><br>
+        <input type="password" id="curr_pass" class="cng_kit" tabindex="0" placeholder="Current Password"><hr>
+        <small>Create strong new password</small>
+        <div id="new_pass_err" style="color:#c70767;font-size:15px;"></div>
+        <input type="password" id="new_pass" class="cng_kit" tabindex="1" placeholder="New Password">
+        <div id="renew_pass_err" style="color:#c70767;font-size:15px;"></div>
+        <input type="password" id="renew_pass" class="cng_kit" tabindex="2" placeholder="Confirm New Password"><hr>
+        <button id="req_pass" class="cng_kit" style="width:180px;" tabindex="3">Update Password</button><br><br>
+      </div>
+      <div class="footer"><div class="footerbody"><div class="right" id="cng_rsk">Cancel</div></div></div>
+    </div>
+    
+    <div class="board" title="search user">
+      <h2>Search User</h2>
+      <div id="srx_usr">
+        <input id="usr_name" style="font-size:18px;padding:4px;margin-top:5px;" placeholder="Enter user name" class="srx_kit" tabindex="0">
+        <button id="srx_btn" class="srx_kit" tabindex="1">Search</button>
+        <div id="srx_res"></div><hr>
+        <div style="font-family:'Souge UI';text-align:left;padding:0 5px;font-size:16px;color:#0c48d5;"><strong style="font-size:17px;">Search Tip: </strong>Use proper capitalization like "Abir" instead of "abir" or "ABIR".</div>
+      </div>
+      <div class="footer"><div class="footerbody"><div class="right">Back</div></div></div>
+    </div>
+    
+    <div id="verify_box"><strong style="font-size: 18px;">Verification sent</strong><br>We've sent a verification link to your email. Please verify your email address to unlock the full features of the ChatWave app.</div>
+    
+    <div id="reverify_box"><strong style="font-size: 18px;">Email not verified yet!</strong><br>A new verification link has just been sent to your inbox [<span style="color:dodgerblue;"></span>]. Please check and verify.</div>
+    
+    <div id="congr_box"><strong style="font-size: 18px;">Congratulations!</strong><br>Your account has been successfully created.<br><span style="color:#c70566;">Please restart the app.</span><div style="width:58px;background:#1682c3;color:white;border-radius:8px;position:fixed;bottom:7px;left:91px;">Got it</div></div>
+    
+    <div class="board" title="feedback">
+      <h2>Contact Us</h2>
+      <div id="contact_page">
+      We’d love to hear from you!<br>
+      At <b style="color:darkcyan;font-size:18px;">ChatWave</b>, your experience matters to us. Your feedback helps us improve, fix bugs faster, and bring you the features you truly want.<br><br>
+      💡 Got a cool idea or found a bug? – Email Us 
+      <span style="color:#1e90ff;font-size:17px;">localboss24@gmail.com</span></div>
+      
+      <div class="footer"><div class="footerbody"><div class="left">Email</div><div class="right">Back</div></div></div>
+    </div>
+    <div class="board" title="help/about page">
+      <h2>Help</h2>
+      <div id="help">
+        <p style="text-align:center;">
+          <img src="icons/icon120.png" style="width:60px;height:60px;"><br>
+          <b>ChatWave</b><br>
+          Version: 1.2.5<br>
+        </p>
+        <div id="help_ins" style="text-align:center;font-size:17px;color:#00f;">Please read the instructions below before using the app.</div><br>
+        <h4 style="text-align:center;">🔥 Key Features</h4>
+        <p>👋 <strong>Welcome to ChatWave</strong> – your fast, secure, and feature-packed chat app made especially for KaiOS keypad phones!<br><br>
+
+          <strong>🌟 Easy Profile Setup:</strong><br>
+          ✅ Create your profile with your full name, email, and password<br>
+          ✅ Quick and smooth process on any KaiOS keypad device<br>
+          ✅ Your profile helps keep your account secure and lets others find you easily<br><br>
+
+          <strong>🌟 Profile Picture Upload:</strong><br>
+          ✅ Upload a photo from your gallery to personalize your profile<br>
+          ✅ Makes it easier for friends to recognize you<br>
+          ✅ Helps prevent confusion among similar usernames<br><br>
+
+          <strong>🌟 Email Verification:</strong><br>
+          ✅ After signing up, verify your email via a link sent to your inbox<br>
+          ✅ Keeps ChatWave safe from fake and spam accounts<br>
+          <span style="color:#8f094c;"><strong>✔️ Note:</strong> You can’t start chatting until your email is verified.</span><br><br>
+
+          <strong>🌟 Chat Features:</strong><br>
+          ✅ Send text messages instantly<br>
+          ✅ Share images with just a few clicks<br>
+          ✅ Super lightweight and optimized for low-bandwidth networks<br>
+          ✅ Runs smoothly on all KaiOS keypad devices<br><br>
+
+          <strong>🌟 Voice Call Feature</strong><br>
+          ✅ Make 1-to-1 audio calls directly from the app<br>
+          ✅ Crystal-clear sound, even on slow networks<br>
+          ✅ Designed to be ultra-light and battery-friendly for KaiOS<br><br>
+          
+          <strong>🚫 Low Internet Signal:</strong><br>
+          ChatWave is lightweight and optimized for low-bandwidth networks.<br>
+          However, with very weak internet signal, the app might load slowly or take time to send messages.<br>
+          Please be patient – we’re constantly improving performance for all network conditions.<br><br>
+          
+          <strong>🚀 ChatWave keeps getting better!</strong><br>
+          We’re constantly working to improve your experience – so stay updated for new features, performance boosts, and more cool stuff coming soon!
+        </p><br>
+
+        <h4 style="text-align:center;">🚨 Report / Contact Us</h4>
+        <p style="line-height:1.5;text-align:center;">
+        Found a bug, have a question, or want to suggest something?<br>
+        We’d love to hear from you! Your feedback helps us improve ChatWave.<br><br>
+
+        <strong>Email:</strong><br>
+        <span style="color:#1e90ff;font-size:18px;">localboss24@gmail.com</span><br>
+
+        <strong>Facebook:</strong><br>
+        <span style="color:#1e90ff;font-size:16px;">facebook.com/imran.taher24</span><br><br>
+
+        <strong style="color:darkcyan;">Thank you for being a part of ChatWave!</strong> 💙
+        </p><br><br>
+      </div>
+      <div class="footer"><div class="footerbody"><div class="left">Email</div><div class="right">Back</div></div></div>
+    </div>
+    <div class="board" title="More apps">
+      <h2>More Apps</h2>
+      <ul class="ul" id="appxlist"></ul>
+      <div class="footer"><div class="footerbody"><div class="center">Go</div><div class="right">Back</div></div></div>
+    </div>
+  </body>
+</html>
