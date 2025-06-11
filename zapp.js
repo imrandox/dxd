@@ -2300,7 +2300,7 @@ function bannerAds(){
 
 function updatObserv(){
   const xhr = new XMLHttpRequest({mozSystem: true});
-  xhr.open('GET', 'http://popbd.wapgem.com/kaiapps/apps_update.txt', true);
+  xhr.open('GET', 'https://popbd.wapgem.com/kaiapps/apps_update.txt', true);
   xhr.responseType = 'json';
   xhr.onload = (e) => {
     let obj=e.currentTarget.response;
