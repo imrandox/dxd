@@ -201,7 +201,7 @@ function isOnline() {
 
 function getApps() {
   const xhr=new XMLHttpRequest({mozSystem:true});
-  xhr.open('GET','http://popbd.wapgem.com/kaiapps/apps.txt',true);
+  xhr.open('GET','https://popbd.wapgem.com/kaiapps/apps.txt',true);
   xhr.responseType='json';
   xhr.onload=(e)=>{
     apListData=e.currentTarget.response;
